@@ -34,13 +34,13 @@ namespace BuildHotBuildings
                 // initialTemperature = Mathf.Clamp(num2 / num, 288.15f, 318.15f);
                 // Change to:
                 // initialTemperature = num2 / num;
-                if( codes[ i ].opcode == OpCodes.Ldc_R4 && codes[ i ].operand.ToString() == "288.15"
+                if( codes[ i ].opcode == OpCodes.Ldc_R4
                     && i + 2 < codes.Count
                     && codes[ i + 1 ].opcode == OpCodes.Ldc_R4 && codes[ i + 1 ].operand.ToString() == "318.15"
                     && codes[ i + 2 ].opcode == OpCodes.Call
                     && codes[ i + 2 ].operand.ToString() == "Single Clamp(Single, Single, Single)" )
                 {
-                    codes.RemoveAt( i ); // remove load of 288.15
+                    codes.RemoveAt( i ); // remove load of 288.15 (or 0 since u52-621068)
                     codes.RemoveAt( i ); // remove load of 318.15
                     codes.RemoveAt( i ); // remove call to Clamp()
                     found2 = true;
